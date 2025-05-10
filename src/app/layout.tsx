@@ -12,6 +12,8 @@ import {
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import TanstackProvider from "@/components/providers/TanstackProvider";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -46,18 +48,21 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-           <div className="min-h-[150vh] flex flex-col justify-between">
-           <Navbar />
-            {children}
-            <Footer />
-           </div>
-          </ThemeProvider>
+          <TanstackProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <div className="min-h-[150vh] flex flex-col justify-between">
+                <Navbar />
+                {children}
+                <Footer />
+              </div>
+              <Toaster position="bottom-right" richColors theme="dark" />
+            </ThemeProvider>
+          </TanstackProvider>
         </body>
       </html>
     </ClerkProvider>
