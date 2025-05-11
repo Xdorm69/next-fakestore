@@ -1,9 +1,7 @@
 import Link from "next/link";
 import React from "react";
-import {
-  ClerkProvider,
+import{
   SignInButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,
@@ -13,7 +11,7 @@ import { ModeToggle } from "./ui/ThemeChange";
 const links = [
   { href: "/", label: "Home" },
   { href: "/cart", label: "Cart" },
-  { href: "/contact", label: "Contact" },
+  { href: "/account", label: "Account" },
 ];
 
 const Navbar = () => {

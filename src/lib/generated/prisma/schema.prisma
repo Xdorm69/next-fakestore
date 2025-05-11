@@ -1,0 +1,63 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/lib/generated/prisma"
+}
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  UPI
+}
+
+enum PaymentStatus {
+  PAID
+  PENDING
+  UNPAID
+}
+
+model BuyHistory {
+  id            String        @id @default(cuid())
+  userId        String
+  productId     String
+  quantity      Int
+  address       String
+  name          String
+  email         String
+  price         Decimal
+  paymentStatus PaymentStatus @default(PENDING)
+  paymentMethod PaymentMethod @default(CASH)
+  createdAt     DateTime      @default(now())
+}
+
+model User {
+  userId  String @id @unique
+  name    Json
+  address String
+  email   String
+}
+
+model Cart {
+  id            String        @id @default(uuid())
+  userId        String
+  productId     String
+  quantity      Int           @default(1)
+  orderPlacedAt DateTime      @default(now())
+  totalPrice    Decimal
+  paymentStatus PaymentStatus @default(PENDING)
+  paymentMethod PaymentMethod @default(CASH)
+}
